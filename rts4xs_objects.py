@@ -25,21 +25,100 @@ class Countable:
     def increment(self, v):
         self.element = self.element + v
 
+class Time(Countable):
+    '''in game elements must change according to time consider representing the decimal as a seperate number
+    '''
+    def __init__(self, n = 'Time', e = 2200.0, p = False):
+        self.name = n
+        self.element = e
+        self.playing = p
+    
+    
+
 class Resource(Countable):
     '''in game element that increments and can be used to supply and maintain
     ships, buildings, infastructure, research
     '''
-    pass
+    
+
 
 class Celestial:
-    '''in game element characterizing any meaningful object in orbit in a solar
-    system. Typically exploited for events or resources. anywhere from a a gas giant to a comet
-    '''
+    '''in game element characterizing any meaningful object in space. requires the ability to have subelements.
+    Attributes:
+        celestials: array of objects orbiting around the main celestial object. 
+        e.g. if the celestial is a star this would include asteroids and planets and comets
+        e.g. if the celestial is a planet this would include any moons that orbit around the planet
+        the index of the celestial represents its relative position within the celestial body. if the celestial body is a sun,
+        the 0 index would be mercury
 
-    pass
+
+    '''
+    def __init__(self):
+        self.celestials = []
+        self.resources = []
+        self.buildings = []
+        self.ships = []
+        self.name = ''
+        self.type = ''
+
+    def init_celestials(self):
+        pass
+    def init_resources(self):
+        pass
+    
+    def getName(self):
+        return self.name
+    def setName(self, n):
+        self.name = n
+    def getType(self):
+        return self.type
+    def setType(self, t):
+        self.type = t
+
+    def get_celestials(self):
+        return self.celestials
+    def set_celestial(self, index, celestial):
+        self.celestials[index] = celestial
+    def append_celestial(self, celestial):
+        self.celestials.append(celestial)
+    def get_resources(self):
+        return self.resources
+    def set_resources(self, index, resource):
+        self.resources[index] = resource
+    def append_resource(self, resource):
+        self.resources.append(resource)
+    def get_buildings(self):
+        return self.buildings
+    def set_building(self, index,  building):
+        self.buildings[index] = building
+    def append_building(self, building):
+        self.buildings.append(building)
+    def get_ships(self):
+        return self.ships
+    def set_ship(self, index, ship):
+        self.ships[index] = ship
+    def append_ship(self, ship):
+        self.ships.append(ship)
+    
+
+        
 
 class Planet(Celestial):
-    pass
+    def __init__(self, p, ra, atm, t):
+        self.position = p
+        self.resource_array = ra
+        
+        self.atmosphere = atm
+        
+        self.tiles = t
+        self.buildings = None
+        self.population = None
+
+    
+
+    
+
+
 
 class GasGiant(Planet):
     pass
