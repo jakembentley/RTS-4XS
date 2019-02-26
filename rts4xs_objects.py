@@ -104,15 +104,19 @@ class Celestial:
         
 
 class Planet(Celestial):
-    def __init__(self, p, ra, atm, t):
-        self.position = p
-        self.resource_array = ra
-        
-        self.atmosphere = atm
-        
-        self.tiles = t
-        self.buildings = None
-        self.population = None
+
+    
+    def __init__(self):
+        self.celestials = []
+        self.resources = []
+        self.buildings = []
+        self.ships = []
+        self.name = ''
+        self.type = 'Planet'
+        self.populations = {}
+        self.habit_scores = {}
+     
+    
 
     
 
