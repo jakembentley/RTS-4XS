@@ -34,28 +34,28 @@ class Celestial:
         self.population = 0
         self.habitability = 0.0
     
-    def __init__(self, c = 'moon'):
+    def moon(self):
         self.celestials = [None]
         self.resources = {}
         self.infrastructure = []
-        self.category = c
+        self.category = 'moon'
         self.population = 0
         self.habitability = choices([0.0,0.1, 0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1], \
             [0.6,0.2,0.05,0.025, 0.025,0.025, 0.025,0.025,0.15, 0.005,0.005]) 
     
-    def __init__(self, y = 'asteroid'):
+    def asteroid(self):
         self.celestials = [None]
         self.resources = {}
         self.infrasture = []
-        self.category = y
+        self.category = 'asteroid'
         self.population = 0
         self.habitability = 0
     
-    def __init__(self, x = 'comet'):
+    def comet(self):
         self.celestials = [None]
         self.resources = {}
         self.infrasture = []
-        self.category = x
+        self.category = 'comet'
         self.population = 0
         self.habitability = 0
 
@@ -80,20 +80,19 @@ class Planet(Celestial):
     '''
     
     def __init__(self):
-        self.category = choices(['terrestial', 'gas_giant', 'dwarf'], [.425, .525,.05])
+        self.category = choices(['terrestial', 'jovian', 'dwarf'], [.425, .525,.05])
 
         x = 0
         self.celestials = []
         if self.category == 'terrestial':
             x = randint(0,2)
-        elif self.category == 'gas_giant':
+        elif self.category == 'jovian':
             x = randint(0,6)
         else:
             x = randint(0,1)
         
         for i in range(x):
-            new_moon = Celestial('moon')
-            self.celestials.append(new_moon)
+            self.celestials.append(Celestial().moon())
         
         
 
