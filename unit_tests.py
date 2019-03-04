@@ -3,7 +3,8 @@ from celestials import Celestial
 from celestials import Star
 from celestials import Planet
 import unittest
-
+from galaxy import Node
+from galaxy import Galaxy
 
 class testCountable(unittest.TestCase):
 
@@ -33,5 +34,17 @@ class testCelestial(unittest.TestCase):
         s = Star()
         self.assertIn(s.category, ['main_sequence', 'blackhole', 'pulsar', 'dwarf', 'giant', 'neutron', 'binary', 'quasar'])
         
+class testNode(unittest.TestCase):
+    def testAddEdge(self):
+        n = Node()
+        n2 = Node()
+        n.addEdge(n2, 2)
+        self.assertEqual(n.edges, [(n2, 2)])
+        self.assertEqual(n2.edges, [(n, 2)])
+
+
+
+
+
 if __name__ == "__main__":
     unittest.main()

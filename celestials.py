@@ -92,7 +92,7 @@ class Celestial:
     def get_population(self):
         return self.population
     def get_habitability(self):
-        return self.habitabilty
+        return self.habitability
 
 
 
@@ -141,9 +141,13 @@ class Star(Celestial):
     
 
     '''
-    def __init__(self):
-        self.category = choices(['main_sequence', 'binary', 'giant', 'dwarf', 'neutron', 'blackhole', 'pulsar',],\
+    def __init__(self, c = None):
+        
+        if c == None:
+            self.category = choices(['main_sequence', 'binary', 'giant', 'dwarf', 'neutron', 'blackhole', 'pulsar',],\
                 [.75, .1, .05, .05, .02, .02, .01])[0]
+        else:
+            self.category = 'quasar'
 
         x = 0
         self.celestials = [] 
@@ -223,6 +227,13 @@ class Star(Celestial):
                     else:
                         a.comet()
                         self.celestials.insert(randint(0, len(self.celestials)-1), a)
+        
+        self.node_name = ''
+
+    def setNodeName(self, node):
+        self.node_name = node
+    def getNodeName(self):
+        return self.node_name 
 
 
 
