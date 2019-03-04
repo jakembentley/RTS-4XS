@@ -34,6 +34,15 @@ class Celestial:
         self.population = 0
         self.habitability = 0.0
     
+    celestials = []
+    resources = {}
+    infrastructure = []
+    category = ''
+
+    population = 0
+    habitability = 0.0
+    
+
     def moon(self):
         self.celestials = [None]
         self.resources = {}
@@ -41,7 +50,7 @@ class Celestial:
         self.category = 'moon'
         self.population = 0
         self.habitability = choices([0.0,0.1, 0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1], \
-            [0.6,0.2,0.05,0.025, 0.025,0.025, 0.025,0.025,0.15, 0.005,0.005]) 
+            [0.6,0.2,0.05,0.025, 0.025,0.025, 0.025,0.025,0.15, 0.005,0.005])[0]
     
     def asteroid(self):
         self.celestials = [None]
@@ -98,9 +107,10 @@ class Planet(Celestial):
     '''
     
     def __init__(self):
-        self.category = choices(['terrestial', 'jovian', 'dwarf'], [.425, .525,.05])
+        self.category = choices(['terrestial', 'jovian', 'dwarf'], [.425, .525,.05])[0]
 
         x = 0
+        self.celestials = []
         if self.category == 'terrestial':
             x = randint(0,2)
         elif self.category == 'jovian':
@@ -109,7 +119,9 @@ class Planet(Celestial):
             x = randint(0,1)
         
         for i in range(x):
-            self.celestials.append(Celestial().moon())
+            m = Celestial()
+            m.moon()
+            self.celestials.append(m)
         
         
 
@@ -131,10 +143,10 @@ class Star(Celestial):
     '''
     def __init__(self):
         self.category = choices(['main_sequence', 'binary', 'giant', 'dwarf', 'neutron', 'blackhole', 'pulsar',],\
-                [.75, .1, .05, .05, .02, .02, .01])
+                [.75, .1, .05, .05, .02, .02, .01])[0]
 
         x = 0
-        
+        self.celestials = [] 
         if self.category == 'main_sequence':
             x = randint(2, 10)
         elif self.category == 'binary':
@@ -149,7 +161,7 @@ class Star(Celestial):
             x = randint(2,10)
         elif self.category == 'pulsar':
             x = 0
-        elif self.cateogry == 'quasar':
+        elif self.category == 'quasar':
             x = 0
 
         for i in range(x):
@@ -159,7 +171,7 @@ class Star(Celestial):
             
             def randhabit():
                 return choices([.0, .1, .2, .3, .4, .5, .6, .7, .8, .9, .1], \
-                        [.5, .1, .1, .1,  .05, .05, .025, .025, .02, .02, .1])
+                        [.5, .1, .1, .1,  .05, .05, .025, .025, .02, .02, .1])[0]
 
             if self.category == 'main_sequence':
                 h = randhabit()
@@ -171,16 +183,12 @@ class Star(Celestial):
                 new_planet.set_habitability(h)
                 self.celestials.append(new_planet)
             
-            elif self.category == 'giant':
+            elif self.category[0] == 'giant':
                 new_planet.set_habitability(h)
                 self.celestials.append(new_planet)
             
             elif self.category == 'dwarf':
                 h = randhabit()
-                new_planet.set_habitability(h)
-                self.celestials.append(new_planet)
-            
-            elif self.category == 'giant':
                 new_planet.set_habitability(h)
                 self.celestials.append(new_planet)
             
@@ -194,15 +202,27 @@ class Star(Celestial):
             elif self.category == 'pulsar':
                 continue
             
-            elif self.cateogry == 'quasar':
+            elif self.category == 'quasar':
                 continue
    
-        for i in range(randint(0,3):
+        for i in range(randint(0,3)):
                 x = randint(0,1)
-                if x == 0:
-                    self.celestials.insert(randint(0, len(celestials)-1), Celestial().asteroid())
+                a = Celestial()
+                if self.celestials == []:
+                    if x == 0:
+                        a.asteroid()
+                        self.celestials.append(a)
+                    else:
+                        a.comet()
+                        self.celestials.append(a)
+
                 else:
-                    self.celestials.insert(randint(0, len(celestials)-1), Celestial().comet())
+                    if x == 0:
+                        a.asteroid()
+                        self.celestials.insert(randint(0, len(self.celestials)-1), a)
+                    else:
+                        a.comet()
+                        self.celestials.insert(randint(0, len(self.celestials)-1), a)
 
 
 
