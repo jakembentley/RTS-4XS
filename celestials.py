@@ -33,40 +33,45 @@ class Celestial:
 
         self.population = 0
         self.habitability = 0.0
-    
-    celestials = []
-    resources = {}
-    infrastructure = []
-    category = ''
-
-    population = 0
-    habitability = 0.0
+        
+        #will be utilized to draw celestials in respective widgets 
+        self.radius = 0.0
     
 
     def moon(self):
-        self.celestials = [None]
-        self.resources = {}
-        self.infrastructure = []
-        self.category = 'moon'
-        self.population = 0
-        self.habitability = choices([0.0,0.1, 0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1], \
+        m = Celestial()
+        m.celestials = [None]
+        m.resources = {}
+        m.infrastructure = []
+        m.category = 'moon'
+        m.population = 0
+        m.radius = .015
+        m.habitability = choices([0.0,0.1, 0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1], \
             [0.6,0.2,0.05,0.025, 0.025,0.025, 0.025,0.025,0.15, 0.005,0.005])[0]
+        return m
     
     def asteroid(self):
-        self.celestials = [None]
-        self.resources = {}
-        self.infrastructure = []
-        self.category = 'asteroid'
-        self.population = 0
-        self.habitability = 0
-    
+        a = Celestial()
+        a.celestials = [None]
+        a.resources = {}
+        a.infrastructure = []
+        a.category = 'asteroid'
+        a.population = 0
+        a.habitability = 0
+        a.radius = .01
+
+        return a
+
     def comet(self):
-        self.celestials = [None]
-        self.resources = {}
-        self.infrastructure = []
-        self.category = 'comet'
-        self.population = 0
-        self.habitability = 0
+        c = Celestial()
+        c.celestials = [None]
+        c.resources = {}
+        c.infrastructure = []
+        c.category = 'comet'
+        c.population = 0
+        c.habitability = 0
+        c.radius = .01
+        return c
 
     def init_celestials(self):
         pass
@@ -113,11 +118,13 @@ class Planet(Celestial):
         self.celestials = []
         if self.category == 'terrestial':
             x = randint(0,2)
+            self.radius = .015
         elif self.category == 'jovian':
-            x = randint(0,6)
+            x = randint(0,5)
+            self.radius = .03
         else:
             x = randint(0,1)
-        
+            self.radius = .01
         for i in range(x):
             m = Celestial()
             m.moon()
@@ -147,26 +154,34 @@ class Star(Celestial):
             self.category = choices(['main_sequence', 'binary', 'giant', 'dwarf', 'neutron', 'blackhole', 'pulsar',],\
                 [.75, .1, .05, .05, .02, .02, .01])[0]
         else:
-            self.category = 'quasar'
+            self.category = c
 
         x = 0
         self.celestials = [] 
         if self.category == 'main_sequence':
             x = randint(2, 10)
+            self.radius = .1
         elif self.category == 'binary':
             x = randint(2, 8)
+            self.radius = .1
         elif self.category == 'giant':
             x = randint(1, 3)
+            self.radius = .2
         elif self.category == 'dwarf':
             x = randint(2, 8)
+            self.radius = .5
         elif self.category == 'neutron':
             x = 0
+            self.radius = .05
         elif self.category == 'blackhole':
             x = randint(2,10)
+            self.radius = .1
         elif self.category == 'pulsar':
             x = 0
+            self.radius = .2
         elif self.category == 'quasar':
             x = 0
+            self.radius = .4
 
         for i in range(x):
             
@@ -211,29 +226,26 @@ class Star(Celestial):
    
         for i in range(randint(0,3)):
                 x = randint(0,1)
-                a = Celestial()
+                
                 if self.celestials == []:
                     if x == 0:
-                        a.asteroid()
+                        a = self.asteroid()
                         self.celestials.append(a)
                     else:
-                        a.comet()
+                        a = self.comet()
                         self.celestials.append(a)
 
                 else:
                     if x == 0:
-                        a.asteroid()
+                        a = self.asteroid()
                         self.celestials.insert(randint(0, len(self.celestials)-1), a)
                     else:
-                        a.comet()
+                        a = self.comet()
                         self.celestials.insert(randint(0, len(self.celestials)-1), a)
         
-        self.node_name = ''
+        
 
-    def setNodeName(self, node):
-        self.node_name = node
-    def getNodeName(self):
-        return self.node_name 
+
 
 
 
